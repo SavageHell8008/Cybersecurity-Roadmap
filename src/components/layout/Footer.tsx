@@ -1,5 +1,5 @@
 
-import { Shield, Github, Twitter, Linkedin, Heart } from 'lucide-react';
+import { Shield, Github, Twitter, Linkedin } from 'lucide-react';
 
 const Footer = () => {
     return (
