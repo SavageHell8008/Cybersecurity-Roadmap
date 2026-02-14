@@ -1,12 +1,26 @@
+
 import {
     Cpu, Network, Globe, Layers, Shield,
     Code, Cloud, Server,
     Key, Zap, Bug, FileCode
 } from 'lucide-react';
 
+export interface Resource {
+    title: string;
+    url: string;
+    type: 'article' | 'video' | 'course' | 'tool';
+}
+
+export interface RoadmapItem {
+    id: string;
+    name: string;
+    description: string;
+    resources?: Resource[];
+}
+
 export interface SubTopic {
     title: string;
-    items: string[];
+    items: RoadmapItem[];
 }
 
 export interface RoadmapTopic {
@@ -27,9 +41,35 @@ export const roadmapData: RoadmapTopic[] = [
         icon: Cpu,
         description: 'Understanding the physical components of a computer.',
         subTopics: [
-            { title: 'Components', items: ['CPU / Processor', 'RAM / Memory', 'Motherboard', 'Storage (SSD/HDD)', 'GPU', 'PSU', 'Cooling'] },
-            { title: 'Peripherals', items: ['Input Devices', 'Output Devices', 'Interfaces (USB, HDMI, etc.)'] },
-            { title: 'Troubleshooting', items: ['POST', 'BIOS/UEFI', 'Boot Sequence', 'Hardware Diagnostics'] }
+            {
+                title: 'Components',
+                items: [
+                    { id: 'cpu', name: 'CPU / Processor', description: 'The Central Processing Unit is the brain of the computer, executing instructions and performing calculations. Key concepts include cores, clock speed, and architecture (x86, ARM).', resources: [{ title: 'How CPUs Work', url: '#', type: 'article' }] },
+                    { id: 'ram', name: 'RAM / Memory', description: 'Random Access Memory is volatile storage used for currently running programs and data. Faster than storage but loses data when power is off.', resources: [] },
+                    { id: 'mobo', name: 'Motherboard', description: 'The main circuit board connecting all components. It houses the CPU socket, RAM slots, and bus interfaces.', resources: [] },
+                    { id: 'storage', name: 'Storage (SSD/HDD)', description: 'Non-volatile data storage. SSDs use flash memory for speed, while HDDs use spinning magnetic platters for capacity.', resources: [] },
+                    { id: 'gpu', name: 'GPU', description: 'Graphics Processing Unit, specialized for rendering images and parallel processing tasks like password cracking.', resources: [] },
+                    { id: 'psu', name: 'PSU', description: 'Power Supply Unit converts outlet power (AC) to DC power usable by internal components.', resources: [] },
+                    { id: 'cooling', name: 'Cooling', description: 'Systems to dissipate heat, preventing thermal throttling. Includes air (fans/sinks) and liquid cooling.', resources: [] }
+                ]
+            },
+            {
+                title: 'Peripherals',
+                items: [
+                    { id: 'input', name: 'Input Devices', description: 'Hardware to send data to the computer (Keyboard, Mouse, Scanner, Microphone). Keyloggers exploit these.', resources: [] },
+                    { id: 'output', name: 'Output Devices', description: 'Hardware that receives data from the computer (Monitor, Printer, Speakers).', resources: [] },
+                    { id: 'interfaces', name: 'Interfaces', description: 'Ports and standards for connection: USB, HDMI, DisplayPort, SATA, PCIe.', resources: [] }
+                ]
+            },
+            {
+                title: 'Troubleshooting',
+                items: [
+                    { id: 'post', name: 'POST', description: 'Power-On Self-Test. A diagnostic sequence run by the BIOS/UEFI on startup to check hardware health.', resources: [] },
+                    { id: 'bios', name: 'BIOS/UEFI', description: 'Firmware that initializes hardware and boots the OS. UEFI is the modern, secure replacement for legacy BIOS.', resources: [] },
+                    { id: 'boot', name: 'Boot Sequence', description: 'The order in which devices are checked for a bootable OS (e.g., USB -> CD -> SSD).', resources: [] },
+                    { id: 'diag', name: 'Hardware Diagnostics', description: 'Tools and methods to identify failing components (e.g., MemTest86 for RAM).', resources: [] }
+                ]
+            }
         ]
     },
     {
@@ -39,10 +79,46 @@ export const roadmapData: RoadmapTopic[] = [
         icon: Network,
         description: 'The backbone of the internet and communication.',
         subTopics: [
-            { title: 'OSI Model', items: ['Physical Layer', 'Data Link Layer', 'Network Layer', 'Transport Layer', 'Session Layer', 'Presentation Layer', 'Application Layer'] },
-            { title: 'TCP/IP', items: ['TCP vs UDP', 'IP Addressing (IPv4/IPv6)', 'Subnetting', 'CIDR', 'Ports & Sockets'] },
-            { title: 'Protocols', items: ['HTTP/HTTPS', 'DNS', 'DHCP', 'FTP/SFTP', 'SSH', 'SMTP/IMAP/POP3', 'ARP', 'ICMP'] },
-            { title: 'Devices', items: ['Routers', 'Switches', 'Firewalls', 'Access Points', 'Modems'] }
+            {
+                title: 'OSI Model',
+                items: [
+                    { id: 'phy', name: 'Physical Layer', description: 'Layer 1: Cables, fibers, hubs. Transmission of raw bit streams.', resources: [] },
+                    { id: 'datalink', name: 'Data Link Layer', description: 'Layer 2: MAC addresses, switches, frames. Node-to-node transfer.', resources: [] },
+                    { id: 'network', name: 'Network Layer', description: 'Layer 3: IP addresses, routers, packets. Path determination and routing.', resources: [] },
+                    { id: 'transport', name: 'Transport Layer', description: 'Layer 4: TCP/UDP, ports. End-to-end connections and reliability.', resources: [] },
+                    { id: 'session', name: 'Session Layer', description: 'Layer 5: Session management between applications.', resources: [] },
+                    { id: 'presentation', name: 'Presentation Layer', description: 'Layer 6: Data translation, encryption, compression.', resources: [] },
+                    { id: 'app', name: 'Application Layer', description: 'Layer 7: User-facing protocols (HTTP, FTP, SMTP).', resources: [] }
+                ]
+            },
+            {
+                title: 'TCP/IP',
+                items: [
+                    { id: 'tcp-udp', name: 'TCP vs UDP', description: 'TCP is connection-oriented and reliable (3-way handshake). UDP is connectionless and fast (streaming).', resources: [] },
+                    { id: 'ip', name: 'IP Addressing', description: 'IPv4 (32-bit) vs IPv6 (128-bit). Private vs Public IP ranges.', resources: [] },
+                    { id: 'subnet', name: 'Subnetting', description: 'Dividing networks into smaller, manageable sub-networks for performance and security.', resources: [] },
+                    { id: 'cidr', name: 'CIDR', description: 'Classless Inter-Domain Routing. Notation for subnet masks (e.g., /24).', resources: [] },
+                    { id: 'ports', name: 'Ports & Sockets', description: 'Virtual endpoints for communication. Port 80 (HTTP), 443 (HTTPS), 22 (SSH).', resources: [] }
+                ]
+            },
+            {
+                title: 'Protocols',
+                items: [
+                    { id: 'http', name: 'HTTP/HTTPS', description: 'Hypertext Transfer Protocol. HTTPS adds TLS encryption for security.', resources: [] },
+                    { id: 'dns', name: 'DNS', description: 'Domain Name System. Translates human-readable names (google.com) to IP addresses.', resources: [] },
+                    { id: 'dhcp', name: 'DHCP', description: 'Dynamic Host Configuration Protocol. Assigns IP addresses automatically.', resources: [] },
+                    { id: 'ssh', name: 'SSH', description: 'Secure Shell. Encrypted remote login protocol, replacing Telnet.', resources: [] },
+                    { id: 'ftp', name: 'FTP/SFTP', description: 'File Transfer Protocol. SFTP uses SSH for secure transfer.', resources: [] }
+                ]
+            },
+            {
+                title: 'Devices',
+                items: [
+                    { id: 'routers', name: 'Routers', description: 'Devices that forward packets between networks (Layer 3).', resources: [] },
+                    { id: 'switches', name: 'Switches', description: 'Devices that connect devices within a network (Layer 2), using MAC addresses.', resources: [] },
+                    { id: 'firewalls', name: 'Firewalls', description: 'Security devices controlling traffic based on rules.', resources: [] }
+                ]
+            }
         ]
     },
     {
@@ -52,24 +128,27 @@ export const roadmapData: RoadmapTopic[] = [
         icon: Server,
         description: 'Managing hardware and software resources.',
         subTopics: [
-            { title: 'Windows', items: ['File System (NTFS)', 'Registry', 'Services', 'Active Directory', 'PowerShell', 'Permissions (ACLs)'] },
-            { title: 'Linux', items: ['File System (ext4, xfs)', 'Kernel', 'Shell (Bash/Zsh)', 'Permissions (chmod/chown)', 'Package Management', 'Process Management'] },
-            { title: 'macOS', items: ['Unix-based Architecture', 'APFS', 'Terminal', 'System Preferences'] }
+            {
+                title: 'Windows',
+                items: [
+                    { id: 'ntfs', name: 'File System (NTFS)', description: 'New Technology File System. Supports ACLs, journaling, and huge files.', resources: [] },
+                    { id: 'registry', name: 'Registry', description: 'Hierarchical database of configuration settings.', resources: [] },
+                    { id: 'services', name: 'Services', description: 'Background processes in Windows.', resources: [] },
+                    { id: 'ad', name: 'Active Directory', description: 'Microsoft directory service for domain network management.', resources: [] },
+                    { id: 'powershell', name: 'PowerShell', description: 'Task automation and configuration management framework (cmdlets).', resources: [] }
+                ]
+            },
+            {
+                title: 'Linux',
+                items: [
+                    { id: 'kernel', name: 'Kernel', description: 'Core component managing hardware and system resources.', resources: [] },
+                    { id: 'shell', name: 'Shell', description: 'Command-line interface (Bash, Zsh) to interact with the OS.', resources: [] },
+                    { id: 'perms', name: 'Permissions', description: 'Read, Write, Execute (rwx). Chmod/chown/chgrp commands.', resources: [] },
+                    { id: 'pkg', name: 'Package Management', description: 'Tools to install software (apt, yum, pacman, dnf).', resources: [] }
+                ]
+            }
         ]
     },
-    {
-        id: 'virtualization',
-        title: 'Virtualization',
-        category: 'IT Fundamentals',
-        icon: Layers,
-        description: 'Creating virtual versions of resources.',
-        subTopics: [
-            { title: 'Hypervisors', items: ['Type 1 (Bare Metal)', 'Type 2 (Hosted)', 'ESXi', 'Hyper-V', 'VirtualBox', 'VMware Workstation'] },
-            { title: 'Containers', items: ['Docker', 'Kubernetes', 'Containerization vs Virtualization'] },
-            { title: 'Cloud Concepts', items: ['Virtual Machines (EC2/VMs)', 'Virtual Networks (VPC/VNet)'] }
-        ]
-    },
-    // --- PROGRAMMING ---
     {
         id: 'programming',
         title: 'Programming Skills',
@@ -77,14 +156,31 @@ export const roadmapData: RoadmapTopic[] = [
         icon: Code,
         description: 'Coding for automation and exploitation.',
         subTopics: [
-            { title: 'Python', items: ['Scripting', 'Automation', 'Requests Lib', 'Socket Programming', 'Scapy'] },
-            { title: 'JavaScript', items: ['DOM Manipulation', 'XSS Payloads', 'Node.js', 'React (for tools)'] },
-            { title: 'Bash/Shell', items: ['Scripting', 'Pipelines', 'Regex', 'System Admin Tasks'] },
-            { title: 'Go', items: ['Concurrency', 'High Performance Tools', 'Networking'] },
-            { title: 'C/C++', items: ['Memory Management', 'Buffer Overflows', 'Pointers', 'System Calls'] }
+            {
+                title: 'Python',
+                items: [
+                    { id: 'py-script', name: 'Scripting', description: 'Writing scripts to automate repetitive tasks.', resources: [] },
+                    { id: 'py-req', name: 'Requests', description: 'Library for sending HTTP requests easily.', resources: [] },
+                    { id: 'py-scapy', name: 'Scapy', description: 'Packet manipulation library for network probing and attacks.', resources: [] }
+                ]
+            },
+            {
+                title: 'JavaScript',
+                items: [
+                    { id: 'dom', name: 'DOM Manipulation', description: 'Interacting with the Document Object Model for XSS.', resources: [] },
+                    { id: 'xss', name: 'XSS Payloads', description: 'Crafting malicious scripts to execute in browsers.', resources: [] },
+                    { id: 'node', name: 'Node.js', description: 'JavaScript runtime for server-side scripting.', resources: [] }
+                ]
+            },
+            {
+                title: 'Bash',
+                items: [
+                    { id: 'bash-script', name: 'Scripting', description: 'Automating command line tasks.', resources: [] },
+                    { id: 'pipelines', name: 'Pipelines', description: 'Chaining commands (e.g., cat file | grep content).', resources: [] }
+                ]
+            }
         ]
     },
-    // --- SECURITY ---
     {
         id: 'cyber-threats',
         title: 'Cyber Threats',
@@ -92,9 +188,22 @@ export const roadmapData: RoadmapTopic[] = [
         icon: Bug,
         description: 'Understanding the adversary.',
         subTopics: [
-            { title: 'Malware', items: ['Virus', 'Worm', 'Trojan', 'Ransomware', 'Spyware', 'Rootkit'] },
-            { title: 'Social Engineering', items: ['Phishing', 'Vishing', 'Smishing', 'Pretexting', 'Tailgating'] },
-            { title: 'Advanced Threats', items: ['APT (Advanced Persistent Threats)', 'Zero-Day Exploits', 'Insider Threats'] }
+            {
+                title: 'Malware',
+                items: [
+                    { id: 'virus', name: 'Virus', description: 'Malicious code that attaches to host files to replicate.', resources: [] },
+                    { id: 'worm', name: 'Worm', description: 'Self-replicating malware allowing spread across networks without host interaction.', resources: [] },
+                    { id: 'ransom', name: 'Ransomware', description: 'Malware that encrypts data and demands payment for the key.', resources: [] },
+                    { id: 'trojan', name: 'Trojan', description: 'Malware disguised as legitimate software.', resources: [] }
+                ]
+            },
+            {
+                title: 'Social Engineering',
+                items: [
+                    { id: 'phishing', name: 'Phishing', description: 'Fraudulent emails aiming to steal credentials.', resources: [] },
+                    { id: 'vishing', name: 'Vishing', description: 'Voice phishing (phone calls).', resources: [] }
+                ]
+            }
         ]
     },
     {
@@ -104,9 +213,21 @@ export const roadmapData: RoadmapTopic[] = [
         icon: Shield,
         description: 'Securing the network infrastructure.',
         subTopics: [
-            { title: 'Defensive Tools', items: ['Firewalls (Stateful/Stateless)', 'IDS/IPS', 'VPN', 'Honeypots', 'DMZ'] },
-            { title: 'Monitoring', items: ['SIEM', 'Packet Analysis (Wireshark)', 'Log Analysis', 'Network Flows'] },
-            { title: 'Attacks', items: ['DoS/DDoS', 'Man-in-the-Middle', 'ARP Spoofing', 'DNS Poisoning', 'Port Scanning'] }
+            {
+                title: 'Defensive Tools',
+                items: [
+                    { id: 'fw', name: 'Firewalls', description: 'Filters traffic based on IP, port, and protocol.', resources: [] },
+                    { id: 'ids', name: 'IDS/IPS', description: 'Intrusion Detection/Prevention Systems.', resources: [] },
+                    { id: 'vpn', name: 'VPN', description: 'Virtual Private Network. Encrypted tunnel for privacy.', resources: [] }
+                ]
+            },
+            {
+                title: 'Attacks',
+                items: [
+                    { id: 'dos', name: 'DoS/DDoS', description: 'Denial of Service. Overwhelming a target/network.', resources: [] },
+                    { id: 'mitm', name: 'Man-in-the-Middle', description: 'Intercepting communication between two parties.', resources: [] }
+                ]
+            }
         ]
     },
     {
@@ -116,9 +237,14 @@ export const roadmapData: RoadmapTopic[] = [
         icon: Globe,
         description: 'Securing web and software applications.',
         subTopics: [
-            { title: 'OWASP Top 10', items: ['Injection (SQLi, Command)', 'Broken Auth', 'Sensitive Data Exposure', 'XXE', 'XSS', 'Insecure Deserialization'] },
-            { title: 'Secure Coding', items: ['Input Validation', 'Output Encoding', 'Authentication & Authorization', 'Error Handling'] },
-            { title: 'Testing', items: ['SAST', 'DAST', 'Fuzzing', 'Code Review'] }
+            {
+                title: 'OWASP Top 10',
+                items: [
+                    { id: 'injection', name: 'Injection', description: 'SQL, OS Command injection flaws.', resources: [] },
+                    { id: 'broken-auth', name: 'Broken Authentication', description: 'Flaws in login/session management.', resources: [] },
+                    { id: 'xss-vuln', name: 'XSS', description: 'Cross-Site Scripting vulnerabilities.', resources: [] }
+                ]
+            }
         ]
     },
     {
@@ -128,12 +254,16 @@ export const roadmapData: RoadmapTopic[] = [
         icon: Key,
         description: 'Protecting information through encryption.',
         subTopics: [
-            { title: 'Concepts', items: ['Symmetric vs Asymmetric', 'Hashing', 'Salting', 'Digital Signatures', 'PKI'] },
-            { title: 'Algorithms', items: ['AES', 'RSA', 'ECC', 'SHA-256', 'MD5 (Legacy)'] },
-            { title: 'Protocols', items: ['SSL/TLS', 'IPsec', 'PGP/GPG'] }
+            {
+                title: 'Concepts',
+                items: [
+                    { id: 'sym', name: 'Symmetric', description: 'Same key for encryption and decryption (AES).', resources: [] },
+                    { id: 'asym', name: 'Asymmetric', description: 'Public/Private key pair (RSA).', resources: [] },
+                    { id: 'hash', name: 'Hashing', description: 'One-way transformation (SHA-256).', resources: [] }
+                ]
+            }
         ]
     },
-    // --- CLOUD ---
     {
         id: 'cloud-security',
         title: 'Cloud Security',
@@ -141,12 +271,15 @@ export const roadmapData: RoadmapTopic[] = [
         icon: Cloud,
         description: 'Securing cloud environments.',
         subTopics: [
-            { title: 'Providers', items: ['AWS', 'Azure', 'GCP'] },
-            { title: 'Concepts', items: ['Shared Responsibility Model', 'IAM', 'Security Groups', 'Compliance'] },
-            { title: 'Tools', items: ['CloudTrail', 'GuardDuty', 'Azure Sentinel', 'Cloud Armor'] }
+            {
+                title: 'Providers',
+                items: [
+                    { id: 'aws', name: 'AWS', description: 'Amazon Web Services. Market leader.', resources: [] },
+                    { id: 'azure', name: 'Azure', description: 'Microsoft Cloud Services.', resources: [] }
+                ]
+            }
         ]
     },
-    // --- CERTIFICATIONS ---
     {
         id: 'certifications',
         title: 'Certifications',
@@ -154,12 +287,21 @@ export const roadmapData: RoadmapTopic[] = [
         icon: FileCode,
         description: 'Standard industry certifications.',
         subTopics: [
-            { title: 'Beginner', items: ['CompTIA A+', 'CompTIA Network+', 'CompTIA Security+', 'ISC2 CC'] },
-            { title: 'Intermediate', items: ['CEH (Certified Ethical Hacker)', 'CySA+', 'SSCP', 'GSEC'] },
-            { title: 'Advanced', items: ['OSCP', 'CISSP', 'CISM', 'CISA', 'CASP+'] }
+            {
+                title: 'Beginner',
+                items: [
+                    { id: 'plus', name: 'CompTIA Security+', description: 'Entry-level general security certification.', resources: [] }
+                ]
+            },
+            {
+                title: 'Advanced',
+                items: [
+                    { id: 'oscp', name: 'OSCP', description: 'Offensive Security Certified Professional. Hands-on pentesting.', resources: [] },
+                    { id: 'cissp', name: 'CISSP', description: 'Management-level security certification.', resources: [] }
+                ]
+            }
         ]
     },
-    // --- CTF ---
     {
         id: 'ctf',
         title: 'CTF Platforms',
@@ -167,7 +309,12 @@ export const roadmapData: RoadmapTopic[] = [
         icon: Zap,
         description: 'Hands-on practice environments.',
         subTopics: [
-            { title: 'Advanced Platform', items: ['gopwnit'] }
+            {
+                title: 'Advanced Platform',
+                items: [
+                    { id: 'gopwnit', name: 'gopwnit', description: 'Advanced CTF platform for mastering cybersecurity skills.', resources: [{ title: 'Visit Platform', url: 'https://gopwnit.com', type: 'tool' }] }
+                ]
+            }
         ]
     }
 ];
