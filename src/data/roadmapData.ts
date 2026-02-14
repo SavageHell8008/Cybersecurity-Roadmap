@@ -1,6 +1,6 @@
 
 import {
-    Cpu, Network, Globe, Layers, Shield,
+    Cpu, Network, Globe, Shield,
     Code, Cloud, Server,
     Key, Zap, Bug, FileCode
 } from 'lucide-react';
